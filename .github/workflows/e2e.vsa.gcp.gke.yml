@@ -52,7 +52,7 @@ jobs:
     # to issues unless it's a schedule event.
     if: github.event_name == 'schedule' && needs.verify-attestations.result == 'success'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       # The builder should fail if the builder is tampered with.
       - run: printenv
       - run: ./.github/workflows/scripts/e2e-report-success.sh
@@ -64,6 +64,6 @@ jobs:
     # to issues unless it's a schedule event.
     if: always() && github.event_name == 'schedule' && needs.verify-attestations.result == 'failure'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       # The builder should fail if the builder is tampered with.
       - run: ./.github/workflows/scripts/e2e-report-failure.sh

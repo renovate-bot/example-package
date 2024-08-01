@@ -19,7 +19,7 @@ jobs:
       actions: write
       contents: write
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: ./.github/workflows/scripts/e2e-dispatch.sh
 
   build:
@@ -37,7 +37,7 @@ jobs:
           echo "hello world" > hello
           echo "binary-name=hello" >> "${GITHUB_OUTPUT}"
       - name: Upload binary
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: ${{ steps.build.outputs.binary-name }}
           path: ${{ steps.build.outputs.binary-name }}
@@ -89,7 +89,7 @@ jobs:
     needs: [build]
     if: always() && github.event_name == 'workflow_dispatch' && needs.build.result == 'failure'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: ./.github/workflows/scripts/e2e-report-failure.sh
 
   if-provenance-succeeded:
@@ -98,7 +98,7 @@ jobs:
     # WARNING: This must only contain success statements.
     if: github.event_name == 'workflow_dispatch' && needs.provenance.result == 'success'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: ./.github/workflows/scripts/e2e-report-failure.sh
 
   if-provenance-failed:
@@ -106,5 +106,5 @@ jobs:
     needs: [build, provenance]
     if: always() && github.event_name == 'workflow_dispatch' && needs.provenance.result == 'failure'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: ./.github/workflows/scripts/e2e-report-success.sh
